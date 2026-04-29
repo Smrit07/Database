@@ -134,4 +134,105 @@ CREATE TABLE Contact_Relational (
 );
 
 DROP TABLE contact_relational
+#simple varray
+CREATE TYPE varray_type_name AS
+VARRAY(size) OF datatype;
+
+CREATE OR REPLACE TYPE phone_list_type AS 
+VARRAY(5) OF NUMBER(15);
+/
+
+
+#Multidimensional
+CREATE OR REPLACE TYPE address_obj_type AS OBJECT (
+    City VARCHAR2(30),
+    Street VARCHAR2(30)
+);
+/
+
+#Nested tabel
+CREATE TYPE object_table_type_name
+AS TABLE OF object_type_name;
+/
+
+CREATE TABLE relational_table_name(
+column_name   DATATYPE(SIZE),
+column_name  DATATYPE(SIZE),
+colum_name   object_table_type_name)
+NESTED TABLE nested_column_name STORE AS nested_table_object_name;
+
+contact details should be stored as a varray column in a relational table called students......
+student id, 
+surname, 
+contact home house no, street, town, postcode, 
+conatct uni house no, street, town, postcode, 
+contact work house no, street, town, postcode
+
+
+CREATE OR REPLACE TYPE address_type AS OBJECT (
+    house_no VARCHAR2(10),
+    street   VARCHAR2(50),
+    town     VARCHAR2(30),
+    postcode VARCHAR2(10)
+);
+/
+
+CREATE TYPE contact_varray AS VARRAY(3) OF address_type;
+/
+
+CREATE TABLE students (
+    student_id NUMBER PRIMARY KEY,
+    surname    VARCHAR2(35),
+    contacts   contact_varray_type
+)
+
+NESTED TABLE contacts STORE AS contacts_storage_table;
+
+
+EXAMPLE
+INSERT INTO invoices
+(invoice_number, company_id, biling_date, invoice_item)
+VALUES(10007, 30, '01-OCT-2021',
+
+invoice_item_table_type{
+   invoice_item_type('GREEN', 'SQL', '14-JUL-2022', NULL,1250),
+   invoice_item_type('ADAMS', 'PHP', '08-JUL-2022', NULL,1250),
+}
+
+
+CREATE OR REPLACE TYPE personal_info AS OBJECT (
+    first_name VARCHAR2(30),
+    last_name  VARCHAR2(30),
+    age        NUMBER(3),
+    email      VARCHAR2(50)
+);
+/
+
+CREATE TYPE personal_info_varray_type AS VARRAY(5) OF personal_info;
+/
+
+CREATE TABLE students (
+    student_id NUMBER(6),
+    school     VARCHAR2(30),
+    personal_information personal_info_varray_type
+);
+
+INSERT INTO students
+VALUES (
+    1105,
+    'NAMI COLLEGE',
+    personal_info_varray_type(
+        personal_info('Smrit','Chaulagain',22,'smrit@gmail.com'),
+        personal_info('Dhiraj','Khadka',23,'dhiraj@gmail.com'),
+        personal_info('Arpan','Adhikari',24,'arpan@gmail.com'),
+        personal_info('Subham','Khadka',20,'subham@gmail.com'),
+        personal_info('Abish','Aryal',21,'abish@gmail.com')
+    )
+);
+
+SELECT * FROM students;
+
+SELECT student_id, school FROM students;
+
+
 
