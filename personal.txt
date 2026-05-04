@@ -234,5 +234,46 @@ SELECT * FROM students;
 
 SELECT student_id, school FROM students;
 
+SELECT Birth_Cert_No 
+FROM Contact_Details
+UNION
+SELECT Birth_Cert_No 
+FROM Qualification;
+
+SELECT Birth_Cert_No 
+FROM Medical_Info
+INTERSECT
+SELECT Birth_Cert_No 
+FROM Contact_Details;
+
+##Sceenario staff table
+
+SELECT AVG(balance)
+FROM staff
+where town='OLNEY';
+
+SELECT MAX(balance)
+FROM staff
+where town='OLNEY';
+
+SELECT MIN(balance)
+FROM staff
+where town='OLNEY';
+
+SELECT SUM(balance)
+FROM staff
+where town='OLNEY';
+
+SELECT SUM(balance),dept
+FROM staff
+GROUP BY dept;
+
+select sum(score), avg (score), team 
+from game 
+group by team 
+having avg(score)>1000;
+
+
+
 
 
